@@ -217,8 +217,6 @@
 
 
 
-
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 import React from "react";
@@ -399,7 +397,9 @@ const ViewAllOrders = () => {
                 </tbody>
               </table>
             </div>
-          ):( <div className="text-center">No orders found.</div>)}
+          ) : (
+            <div className="text-center">No orders found.</div>
+          )}
         </div>
       </div>
     </div>

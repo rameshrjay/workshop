@@ -105,7 +105,7 @@ const AddCategoryForm = () => {
             <div className="card-body text-color mt-3">
               <form>
                 <div className="mb-3">
-                  <label for="title" className="form-label">
+                  <label htmlFor="title" className="form-label">
                     <b>Category Title</b>
                   </label>
                   <input
@@ -120,7 +120,7 @@ const AddCategoryForm = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label for="description" className="form-label">
+                  <label htmlFor="description" className="form-label">
                     <b>Category Description</b>
                   </label>
                   <textarea

@@ -40,8 +40,7 @@ const ViewMyCart = () => {
         },
       }
     );
-    console.log(response.data);
-    return response.data;
+    console.log(response.data);  return response.data;
   };
 
   const deleteCart = (cartId, e) => {
@@ -283,8 +282,9 @@ const ViewMyCart = () => {
               </thead>
               <tbody>
                 {carts.map((cart) => {
+                   console.log('Cart:', cart);
                   return (
-                    <tr>
+                    <tr key={cart.id}>
                       <td>
                         <img
                           src={
@@ -302,11 +302,11 @@ const ViewMyCart = () => {
                         <b>{cart.product.name}</b>
                       </td>
                       <td>
-                        <b>{cart.product.category.name}</b>
-                      </td>
-                      <td>
-                        <b>{cart.product.seller.firstName}</b>
-                      </td>
+        <b>{cart.product.category ? cart.product.category.name : 'Not Available'}</b>
+      </td>
+      <td>
+        <b>{cart.product.seller ? cart.product.seller.firstName : 'Not Available'}</b>
+      </td>
                       <td>
                         <b>{cart.product.price}</b>
                       </td>
