@@ -149,9 +149,9 @@ const Footer = () => {
           </div>
 
           <div className="text-center">
-            © 2023 Copyright:
-            <a className="text-color-3" href="https://codewithmurad.com/">
-              codewithmurad.com
+            © 2024 Copyright:
+            <a className="text-color-3" href="https://rjaytechnologies.com/">
+             RjayTechnologies.com
             </a>
           </div>
         </footer>

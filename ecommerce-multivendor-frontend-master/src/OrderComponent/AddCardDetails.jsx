@@ -28,10 +28,10 @@ const AddCardDetails = () => {
     const { name, value } = e.target;
     if (name === "cardName") {
       // Convert name on card to uppercase
-      setCard({ ...card, [name]: value.toUpperCase() });
+      setCard({ ...card, [name]: value });
     } else if (name === "cardNumber") {
       // Remove non-digit characters and add spaces after every 4 digits
-      const formattedValue = value.replace(/\D/g, "").replace(/(.{4})/g, "$1 ");
+      const formattedValue = value.replace(/\D/g, "");
       setCard({ ...card, [name]: formattedValue });
     } else {
       setCard({ ...card, [name]: value });
@@ -46,7 +46,7 @@ const AddCardDetails = () => {
       return false;
     }
 
-    if (!/^\d{16}$/.test(cardNumber.replace(/\s/g, ""))) {
+    if (!/^\d{16}$/.test(cardNumber)) {
       toast.error("Card number must be a 16-digit number");
       return false;
     }

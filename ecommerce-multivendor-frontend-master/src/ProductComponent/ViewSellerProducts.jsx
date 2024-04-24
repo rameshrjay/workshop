@@ -55,7 +55,6 @@ const ViewSellerProducts = () => {
         "http://localhost:8080/api/product/fetch/seller-wise?sellerId=" +
         seller.id
       );
-      console.log(response.data);
       return response.data;
     }
     return null; // Return null if seller is not available

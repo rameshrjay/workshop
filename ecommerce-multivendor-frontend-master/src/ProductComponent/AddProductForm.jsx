@@ -203,8 +203,8 @@ const AddProductForm = () => {
                     {categories.map((category) => {
                       return (
                         <option key={category.id} value={category.id}>
-        {category.name}
-      </option>
+                          {category.name}
+                        </option>
                       );
                     })}
                   </select>
