@@ -48,11 +48,6 @@
   align-items: center;
 }
 
-.upi-logo {
-  width: 50px; /* Adjust size as needed */
-  height: 50px; /* Adjust size as needed */
-}
-
 .upi-input {
   flex: 1;
   margin: 0 10px;
@@ -63,9 +58,9 @@
 }
 
 .upi-button {
-  padding: 8px 16px;
+  padding: 0px 0px 0px 0px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color:#25493f;
   color: #fff;
   border: none;
   border-radius: 4px;
