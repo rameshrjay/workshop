@@ -11,18 +11,6 @@ const ViewSellerProducts = () => {
   const [allProducts, setAllProducts] = useState([]);
   const navigate = useNavigate();
 
-
-  // useEffect(() => {
-  //   const getAllProducts = async () => {
-  //     const allProducts = await retrieveAllProducts();
-  //     if (allProducts) {
-  //       setAllProducts(allProducts.products);
-  //     }
-  //   };
-
-  //   getAllProducts();
-  // }, []);
-
   useEffect(() => {
     if (seller) { // Check if seller object exists
       const getAllProducts = async () => {
@@ -33,21 +21,7 @@ const ViewSellerProducts = () => {
       };
       getAllProducts();
     }
-  }, [seller]); // Add seller to the dependency array
-
-
-
-
-  // const retrieveAllProducts = async () => {
-  //   const response = await axios.get(
-  //     "http://localhost:8080/api/product/fetch/seller-wise?sellerId=" +
-  //     seller.id
-  //   );
-  //   console.log(response.data);
-  //   return response.data;
-  // };
-
-
+  }, [seller]); 
 
   const retrieveAllProducts = async () => {
     if (seller) { // Check if seller object exists
@@ -197,7 +171,7 @@ const ViewSellerProducts = () => {
                         <b>{product.description}</b>
                       </td>
                       <td>
-                        <b>{product.category ? product.category.name : "No Category"}</b>
+                        <b>{product.category ? product.category.name : "NoCategory"}</b>
                       </td>
 
                       <td>

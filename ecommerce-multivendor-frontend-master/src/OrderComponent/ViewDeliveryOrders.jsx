@@ -5,7 +5,7 @@ import { Button, Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 
 const ViewDeliveryOrders = () => {
-  const deliveryPerson = JSON.parse(sessionStorage.getItem("active-delivery"));
+  const deliveryPerson = JSON.parse(sessionStorage.getItem("active-delivery")) || {};
   const [orders, setOrders] = useState([]);
 
   const delivery_jwtToken = sessionStorage.getItem("delivery-jwtToken");
