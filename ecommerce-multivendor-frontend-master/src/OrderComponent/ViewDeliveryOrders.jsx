@@ -291,7 +291,7 @@ const ViewDeliveryOrders = () => {
                         <b>{order.product.name}</b>
                       </td>
                       <td>
-                        <b>{order.product.category.name}</b>
+                        <b>{order.product.category ? order.product.category.name : 'N/A'}</b>
                       </td>
                       <td>
                         <b>{order.product.seller.firstName}</b>
