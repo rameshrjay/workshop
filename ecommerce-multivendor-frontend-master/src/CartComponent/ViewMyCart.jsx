@@ -40,7 +40,7 @@ const ViewMyCart = () => {
         },
       }
     );
-      return response.data;
+    return response.data;
   };
 
   const deleteCart = (cartId, e) => {
@@ -282,7 +282,6 @@ const ViewMyCart = () => {
               </thead>
               <tbody>
                 {carts.map((cart) => {
-                   console.log('Cart:', cart);
                   return (
                     <tr key={cart.id}>
                       <td>
@@ -302,11 +301,11 @@ const ViewMyCart = () => {
                         <b>{cart.product.name}</b>
                       </td>
                       <td>
-        <b>{cart.product.category ? cart.product.category.name : 'Not Available'}</b>
-      </td>
-      <td>
-        <b>{cart.product.seller ? cart.product.seller.firstName : 'Not Available'}</b>
-      </td>
+                        <b>{cart.product.category ? cart.product.category.name : 'Not Available'}</b>
+                      </td>
+                      <td>
+                        <b>{cart.product.seller ? cart.product.seller.firstName : 'Not Available'}</b>
+                      </td>
                       <td>
                         <b>{cart.product.price}</b>
                       </td>

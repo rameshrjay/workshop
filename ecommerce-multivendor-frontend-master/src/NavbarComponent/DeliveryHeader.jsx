@@ -5,8 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 const DeliveryHeader = () => {
   let navigate = useNavigate();
 
-  const user = JSON.parse(sessionStorage.getItem("active-delivery"));
-  console.log(user);
+  // const user = JSON.parse(sessionStorage.getItem("active-delivery"));
+  
 
   const deliveryLogout = () => {
     toast.success("logged out!!!", {
@@ -23,7 +23,7 @@ const DeliveryHeader = () => {
     window.location.reload(true);
     setTimeout(() => {
       navigate("/home");
-    }, 2000); // Redirect after 3 seconds
+    }, 3000); // Redirect after 3 seconds
   };
   return (
     <ul className="navbar-nav ms-auto mb-2 mb-lg-0 me-5">

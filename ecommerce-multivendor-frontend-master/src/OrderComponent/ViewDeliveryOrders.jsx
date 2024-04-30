@@ -10,7 +10,6 @@ const ViewDeliveryOrders = () => {
 
   const delivery_jwtToken = sessionStorage.getItem("delivery-jwtToken");
   
-
   const [deliveryUpdateRequest, setDeliveryUpdateRequest] = useState({
     orderId: "",
     deliveryStatus: "",
@@ -37,9 +36,15 @@ const ViewDeliveryOrders = () => {
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
-
+ 
   useEffect(() => {
     const getAllOrders = async () => {
+
+      if (!delivery_jwtToken || !deliveryPerson.id) {
+        // Redirect to home page or login page
+        window.location.href = "/home"; // Redirect to home page
+        return;
+      }
       let allOrders;
       if (orderId) {
         allOrders = await retrieveOrdersById();
@@ -83,7 +88,7 @@ const ViewDeliveryOrders = () => {
         },
       }
     );
-    console.log(response.data);
+    console.log(response.data+"     tyui");
     return response.data;
   };
 
@@ -291,7 +296,7 @@ const ViewDeliveryOrders = () => {
                         <b>{order.product.name}</b>
                       </td>
                       <td>
-                        <b>{order.product.category ? order.product.category.name : 'N/A'}</b>
+                        <b>{order.product.category ? order.product.category.name : 'Not Available'}</b>
                       </td>
                       <td>
                         <b>{order.product.seller.firstName}</b>
