@@ -9,6 +9,7 @@ const ViewDeliveryOrders = () => {
   const [orders, setOrders] = useState([]);
 
   const delivery_jwtToken = sessionStorage.getItem("delivery-jwtToken");
+  
 
   const [deliveryUpdateRequest, setDeliveryUpdateRequest] = useState({
     orderId: "",
@@ -17,7 +18,7 @@ const ViewDeliveryOrders = () => {
     deliveryDate: "",
     deliveryId: deliveryPerson.id,
   });
-
+  
   const [deliveryStatus, setDeliveryStatus] = useState([]);
   const [deliveryTime, setDeliveryTime] = useState([]);
 
@@ -269,7 +270,7 @@ const ViewDeliveryOrders = () => {
               <tbody>
                 {orders.map((order) => {
                   return (
-                    <tr>
+                    <tr key={order.orderId}>
                       <td>
                         <b>{order.orderId}</b>
                       </td>
@@ -412,10 +413,10 @@ const ViewDeliveryOrders = () => {
                   onChange={handleInput}
                   className="form-control"
                 >
-                  <option value="">Select Delivery Time</option>
+                  <option key="default" value="">Select Delivery Time</option>
 
-                  {deliveryTime.map((time) => {
-                    return <option value={time}>{time}</option>;
+                  {deliveryTime.map((time, index) => {
+                    return <option key={index} value={time}>{time}</option>;
                   })}
                 </select>
               </div>
@@ -430,10 +431,10 @@ const ViewDeliveryOrders = () => {
                   onChange={handleInput}
                   className="form-control"
                 >
-                  <option value="">Select Delivery Status</option>
+                  <option  key="default" value="">Select Delivery Status</option>
 
-                  {deliveryStatus.map((status) => {
-                    return <option value={status}>{status}</option>;
+                  {deliveryStatus.map((status,index) => {
+                    return <option key={index} value={status}>{status}</option>;
                   })}
                 </select>
               </div>

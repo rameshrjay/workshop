@@ -125,7 +125,18 @@ const Product = () => {
     e.preventDefault();
     if (user == null) {
       alert("Please login to buy the products!!!");
-    } else if (product.quantity < 1) {
+     } else if (quantity <= 0) { // Check if quantity is less than or equal to 0
+      toast.error("Please enter a positive quantity!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }else if (product.quantity < 1) {
       toast.error("Product Out Of Stock !!!", {
         position: "top-center",
         autoClose: 1000,
