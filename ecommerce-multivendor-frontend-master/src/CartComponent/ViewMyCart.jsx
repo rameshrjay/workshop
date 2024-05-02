@@ -12,7 +12,7 @@ const ViewMyCart = () => {
   const [carts, setCarts] = useState([]);
   const [cartAmount, setCartAmount] = useState("0.0");
 
-  const [productCart, setProductCart] = useState({});
+  // const [productCart, setProductCart] = useState({});
 
   let navigate = useNavigate();
 
@@ -29,7 +29,7 @@ const ViewMyCart = () => {
     };
 
     getAllCart();
-  }, []);
+  });
 
   const retrieveCart = async () => {
     const response = await axios.get(

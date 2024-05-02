@@ -19,7 +19,7 @@ const PaymentMode = ({ onPaymentSelect }) => {
         onPaymentSelect(event.target.name);
     };
     const { cards, upi, cod } = state;
-    const error = [cards, upi, cod].filter((v) => v).length !== 2;
+    // const error = [cards, upi, cod].filter((v) => v).length !== 2;
 
     return (
         <div className="card-body">

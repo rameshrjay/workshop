@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const UserRegister = () => {
   const navigate = useNavigate();
@@ -21,14 +21,15 @@ const UserRegister = () => {
   });
     
   useEffect(() => {
-    if (document.URL.indexOf("customer") != -1) {
-      user.role = "Customer";
-    } else if (document.URL.indexOf("delivery") != -1) {
-      user.role = "Delivery";
-    } else if (document.URL.indexOf("seller") != -1) {
-      user.role = "Seller";
+    if (document.URL.indexOf("customer") !== -1) {
+      setUser({ ...user, role: "Customer" });
+    } else if (document.URL.indexOf("delivery") !== -1) {
+      setUser({ ...user, role: "Delivery" });
+    } else if (document.URL.indexOf("seller") !== -1) {
+      setUser({ ...user, role: "Seller" });
     }
-  }, []);
+    // eslint-disable-next-line
+  }, [user]);
 
   const handleUserInput = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -36,8 +37,6 @@ const UserRegister = () => {
 
   const saveUser = (e) => {
     e.preventDefault();
-
-    let jwtToken;
 
     if (user.role === "Delivery") {
       user.sellerId = seller.id;

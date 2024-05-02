@@ -216,11 +216,9 @@
 // export default ViewAllOrders;
 
 
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 import React from "react";
-
 const ViewAllOrders = () => {
   const [orders, setOrders] = useState([]);
   const [orderId, setOrderId] = useState("");
@@ -230,6 +228,25 @@ const ViewAllOrders = () => {
   const admin_jwtToken = sessionStorage.getItem("admin-jwtToken");
 
   useEffect(() => {
+    const retrieveAllorders = async () => {
+      const response = await axios.get(
+        "http://localhost:8080/api/order/fetch/all",
+        {
+          headers: {
+            Authorization: "Bearer " + admin_jwtToken,
+          },
+        }
+      );
+      return response.data;
+    };
+
+    const retrieveOrdersById = async () => {
+      const response = await axios.get(
+        "http://localhost:8080/api/order/fetch?orderId=" + orderId
+      );
+      return response.data;
+    };
+
     const getAllOrders = async () => {
       try {
         let allOrders;
@@ -248,26 +265,7 @@ const ViewAllOrders = () => {
     };
 
     getAllOrders();
-  }, [orderId]);
-
-  const retrieveAllorders = async () => {
-    const response = await axios.get(
-      "http://localhost:8080/api/order/fetch/all",
-      {
-        headers: {
-          Authorization: "Bearer " + admin_jwtToken,
-        },
-      }
-    );
-    return response.data;
-  };
-
-  const retrieveOrdersById = async () => {
-    const response = await axios.get(
-      "http://localhost:8080/api/order/fetch?orderId=" + orderId
-    );
-    return response.data;
-  };
+  }, [orderId, admin_jwtToken]);
 
   const formatDateFromEpoch = (epochTime) => {
     const date = new Date(Number(epochTime));
@@ -281,27 +279,11 @@ const ViewAllOrders = () => {
 
   return (
     <div className="mt-3">
-      <div
-        className="card form-card ms-2 me-2 mb-5 custom-bg shadow-lg"
-        style={{
-          height: "40rem",
-        }}
-      >
-        <div
-          className="card-header custom-bg-text text-center bg-color"
-          style={{
-            borderRadius: "1em",
-            height: "50px",
-          }}
-        >
+      <div className="card form-card ms-2 me-2 mb-5 custom-bg shadow-lg" style={{ height: "40rem" }}>
+        <div className="card-header custom-bg-text text-center bg-color" style={{ borderRadius: "1em", height: "50px" }}>
           <h2>All Orders</h2>
         </div>
-        <div
-          className="card-body"
-          style={{
-            overflowY: "auto",
-          }}
-        >
+        <div className="card-body" style={{ overflowY: "auto" }}>
           <form className="row g-3">
             <div className="col-auto">
               <input
@@ -353,10 +335,7 @@ const ViewAllOrders = () => {
                         <td><b>{order.orderId}</b></td>
                         <td>
                           <img
-                            src={
-                              "http://localhost:8080/api/product/" +
-                              (order.product ? order.product.image1 : "")
-                            }
+                            src={"http://localhost:8080/api/product/" + (order.product ? order.product.image1 : "")}
                             className="img-fluid"
                             alt="product_pic"
                             style={{ maxWidth: "90px" }}
@@ -405,5 +384,4 @@ const ViewAllOrders = () => {
     </div>
   );
 };
-
 export default ViewAllOrders;

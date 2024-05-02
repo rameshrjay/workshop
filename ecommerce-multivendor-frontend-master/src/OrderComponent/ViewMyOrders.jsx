@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import React from "react";
+
 const ViewMyOrders = () => {
   let user = JSON.parse(sessionStorage.getItem("active-customer"));
 
@@ -9,6 +10,18 @@ const ViewMyOrders = () => {
   const customer_jwtToken = sessionStorage.getItem("customer-jwtToken");
 
   useEffect(() => {
+    const retrieveCart = async () => {
+      const response = await axios.get(
+        "http://localhost:8080/api/order/fetch/user-wise?userId=" + user.id,
+        {
+          headers: {
+            Authorization: "Bearer " + customer_jwtToken,
+          },
+        }
+      );
+      return response.data;
+    };
+
     const getAllOrders = async () => {
       const allOrders = await retrieveCart();
       if (allOrders) {
@@ -17,24 +30,11 @@ const ViewMyOrders = () => {
     };
 
     getAllOrders();
-  }, []);
-
-  const retrieveCart = async () => {
-    const response = await axios.get(
-      "http://localhost:8080/api/order/fetch/user-wise?userId=" + user.id,
-      {
-        headers: {
-          Authorization: "Bearer " + customer_jwtToken, // Replace with your actual JWT token
-        },
-      }
-    );
-    console.log(response.data);
-    return response.data;
-  };
+  }, [user.id, customer_jwtToken]);
 
   const formatDateFromEpoch = (epochTime) => {
     const date = new Date(Number(epochTime));
-    const formattedDate = date.toLocaleString(); // Adjust the format as needed
+    const formattedDate = date.toLocaleString();
 
     return formattedDate;
   };
@@ -83,7 +83,7 @@ const ViewMyOrders = () => {
               <tbody>
                 {orders.map((order) => {
                   return (
-                    <tr>
+                    <tr key={order.orderId}>
                       <td>
                         <b>{order.orderId}</b>
                       </td>
@@ -104,8 +104,8 @@ const ViewMyOrders = () => {
                         <b>{order.product.name}</b>
                       </td>
                       <td>
-  <b>{order.product.category ? order.product.category.name : "No Category"}</b>
-</td>
+                        <b>{order.product.category ? order.product.category.name : "No Category"}</b>
+                      </td>
                       <td>
                         <b>{order.product.seller.firstName}</b>
                       </td>

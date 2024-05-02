@@ -7,9 +7,12 @@ import { ToastContainer, toast } from "react-toastify";
 const ViewDeliveryOrders = () => {
   const deliveryPerson = JSON.parse(sessionStorage.getItem("active-delivery")) || {};
   const [orders, setOrders] = useState([]);
-
-  const delivery_jwtToken = sessionStorage.getItem("delivery-jwtToken");
-  
+  const [deliveryStatus, setDeliveryStatus] = useState([]);
+  const [deliveryTime, setDeliveryTime] = useState([]);
+  const [orderId, setOrderId] = useState("");
+  const [tempOrderId, setTempOrderId] = useState("");
+  const [assignOrderId, setAssignOrderId] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const [deliveryUpdateRequest, setDeliveryUpdateRequest] = useState({
     orderId: "",
     deliveryStatus: "",
@@ -17,9 +20,10 @@ const ViewDeliveryOrders = () => {
     deliveryDate: "",
     deliveryId: deliveryPerson.id,
   });
-  
-  const [deliveryStatus, setDeliveryStatus] = useState([]);
-  const [deliveryTime, setDeliveryTime] = useState([]);
+  const delivery_jwtToken = sessionStorage.getItem("delivery-jwtToken");
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
 
   const handleInput = (e) => {
     setDeliveryUpdateRequest({
@@ -28,21 +32,30 @@ const ViewDeliveryOrders = () => {
     });
   };
 
-  const [orderId, setOrderId] = useState("");
-  const [tempOrderId, setTempOrderId] = useState("");
-  const [assignOrderId, setAssignOrderId] = useState("");
-
-  const [showModal, setShowModal] = useState(false);
-
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
- 
   useEffect(() => {
-    const getAllOrders = async () => {
+    const retrieveOrdersById = async () => {
+      const response = await axios.get(
+        "http://localhost:8080/api/order/fetch?orderId=" + orderId
+      );
+      return response.data;
+    };
 
+    const retrieveAllorders = async () => {
+      const response = await axios.get(
+        "http://localhost:8080/api/order/fetch/delivery-wise?deliveryPersonId=" +
+          deliveryPerson.id,
+        {
+          headers: {
+            Authorization: "Bearer " + delivery_jwtToken,
+          },
+        }
+      );
+      return response.data;
+    };
+
+    const getAllOrders = async () => {
       if (!delivery_jwtToken || !deliveryPerson.id) {
-        // Redirect to home page or login page
-        window.location.href = "/home"; // Redirect to home page
+        window.location.href = "/home";
         return;
       }
       let allOrders;
@@ -51,7 +64,6 @@ const ViewDeliveryOrders = () => {
       } else {
         allOrders = await retrieveAllorders();
       }
-
       if (allOrders) {
         setOrders(allOrders.orders);
       }
@@ -59,7 +71,6 @@ const ViewDeliveryOrders = () => {
 
     const getAllDeliveryStatus = async () => {
       let allStatus = await retrieveAllDeliveryStatus();
-
       if (allStatus) {
         setDeliveryStatus(allStatus);
       }
@@ -67,7 +78,6 @@ const ViewDeliveryOrders = () => {
 
     const getAllDeliveryTiming = async () => {
       let allTiming = await retrieveAllDeliveryTiming();
-
       if (allTiming) {
         setDeliveryTime(allTiming);
       }
@@ -76,27 +86,12 @@ const ViewDeliveryOrders = () => {
     getAllOrders();
     getAllDeliveryStatus();
     getAllDeliveryTiming();
-  }, [orderId]);
-
-  const retrieveAllorders = async () => {
-    const response = await axios.get(
-      "http://localhost:8080/api/order/fetch/delivery-wise?deliveryPersonId=" +
-        deliveryPerson.id,
-      {
-        headers: {
-          Authorization: "Bearer " + delivery_jwtToken, // Replace with your actual JWT token
-        },
-      }
-    );
-    console.log(response.data+"     tyui");
-    return response.data;
-  };
+  }, [orderId, delivery_jwtToken, deliveryPerson.id]);
 
   const retrieveAllDeliveryStatus = async () => {
     const response = await axios.get(
       "http://localhost:8080/api/order/fetch/delivery-status/all"
     );
-    console.log(response.data);
     return response.data;
   };
 
@@ -104,23 +99,12 @@ const ViewDeliveryOrders = () => {
     const response = await axios.get(
       "http://localhost:8080/api/order/fetch/delivery-time/all"
     );
-    console.log(response.data);
-    return response.data;
-  };
-
-  const retrieveOrdersById = async () => {
-    const response = await axios.get(
-      "http://localhost:8080/api/order/fetch?orderId=" + orderId
-    );
-    console.log(response.data);
     return response.data;
   };
 
   const formatDateFromEpoch = (epochTime) => {
     const date = new Date(Number(epochTime));
-    const formattedDate = date.toLocaleString(); // Adjust the format as needed
-
-    return formattedDate;
+    return date.toLocaleString();
   };
 
   const searchOrderById = (e) => {
@@ -135,7 +119,6 @@ const ViewDeliveryOrders = () => {
 
   const updateOrderStatus = (orderId, e) => {
     deliveryUpdateRequest.orderId = assignOrderId;
-
     fetch("http://localhost:8080/api/order/update/delivery-status", {
       method: "PUT",
       headers: {
@@ -157,10 +140,9 @@ const ViewDeliveryOrders = () => {
               draggable: true,
               progress: undefined,
             });
-
             setTimeout(() => {
               window.location.reload(true);
-            }, 2000); // Redirect after 3 seconds
+            }, 2000);
           } else if (!res.success) {
             toast.error(res.responseMessage, {
               position: "top-center",
@@ -173,7 +155,7 @@ const ViewDeliveryOrders = () => {
             });
             setTimeout(() => {
               window.location.reload(true);
-            }, 2000); // Redirect after 3 seconds
+            }, 2000);
           } else {
             toast.error("It Seems Server is down!!!", {
               position: "top-center",
@@ -186,7 +168,7 @@ const ViewDeliveryOrders = () => {
             });
             setTimeout(() => {
               window.location.reload(true);
-            }, 2000); // Redirect after 3 seconds
+            }, 2000);
           }
         });
       })
@@ -203,33 +185,17 @@ const ViewDeliveryOrders = () => {
         });
         setTimeout(() => {
           window.location.reload(true);
-        }, 1000); // Redirect after 3 seconds
+        }, 1000);
       });
   };
 
   return (
     <div className="mt-3">
-      <div
-        className="card form-card ms-2 me-2 mb-5 custom-bg shadow-lg"
-        style={{
-          height: "40rem",
-        }}
-      >
-        <div
-          className="card-header custom-bg-text text-center bg-color"
-          style={{
-            borderRadius: "1em",
-            height: "50px",
-          }}
-        >
+      <div className="card form-card ms-2 me-2 mb-5 custom-bg shadow-lg" style={{ height: "40rem" }}>
+        <div className="card-header custom-bg-text text-center bg-color" style={{ borderRadius: "1em", height: "50px" }}>
           <h2>My Delivery Orders</h2>
         </div>
-        <div
-          className="card-body"
-          style={{
-            overflowY: "auto",
-          }}
-        >
+        <div className="card-body" style={{ overflowY: "auto" }}>
           <form className="row g-3">
             <div className="col-auto">
               <input

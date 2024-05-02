@@ -9,35 +9,36 @@ import ProductCarousel from "./ProductCarousel";
 
 const Product = () => {
   const { productId, categoryId } = useParams();
-
   let navigate = useNavigate();
-
   const customer_jwtToken = sessionStorage.getItem("customer-jwtToken");
-
   let user = JSON.parse(sessionStorage.getItem("active-customer"));
-
   const [quantity, setQuantity] = useState("");
-
   const [products, setProducts] = useState([]);
-
   const [product, setProduct] = useState({
     seller: {
       firstName: "",
     },
   });
 
-  const retrieveProduct = async () => {
-    const response = await axios.get(
-      "http://localhost:8080/api/product/fetch?productId=" + productId
-    );
-
-    return response.data;
-  };
-
   useEffect(() => {
+    const retrieveProduct = async () => {
+      const response = await axios.get(
+        "http://localhost:8080/api/product/fetch?productId=" + productId
+      );
+      return response.data;
+    };
+
+    const retrieveProductsByCategory = async () => {
+      const response = await axios.get(
+        "http://localhost:8080/api/product/fetch/category-wise?categoryId=" +
+          categoryId
+      );
+      console.log(response.data);
+      return response.data;
+    };
+
     const getProduct = async () => {
       const retrievedProduct = await retrieveProduct();
-
       setProduct(retrievedProduct.products[0]);
     };
 
@@ -50,16 +51,7 @@ const Product = () => {
 
     getProduct();
     getProductsByCategory();
-  }, [productId]);
-
-  const retrieveProductsByCategory = async () => {
-    const response = await axios.get(
-      "http://localhost:8080/api/product/fetch/category-wise?categoryId=" +
-        categoryId
-    );
-    console.log(response.data);
-    return response.data;
-  };
+  }, [productId, categoryId]);
 
   const saveProductToCart = (userId) => {
     fetch("http://localhost:8080/api/cart/add", {
@@ -125,7 +117,8 @@ const Product = () => {
     e.preventDefault();
     if (user == null) {
       alert("Please login to buy the products!!!");
-     } else if (quantity <= 0) { // Check if quantity is less than or equal to 0
+    } else if (quantity <= 0) {
+      // Check if quantity is less than or equal to 0
       toast.error("Please enter a positive quantity!", {
         position: "top-center",
         autoClose: 1000,
@@ -136,7 +129,7 @@ const Product = () => {
         progress: undefined,
       });
       return;
-    }else if (product.quantity < 1) {
+    } else if (product.quantity < 1) {
       toast.error("Product Out Of Stock !!!", {
         position: "top-center",
         autoClose: 1000,
@@ -220,11 +213,9 @@ const Product = () => {
 
             <div className="card-footer custom-bg">
               <div className="text-center text-color">
-                
-                  <span>
-                    <h4>Price : &#8377;{product.price}</h4>
-                  </span>
-              
+                <span>
+                  <h4>Price : &#8377;{product.price}</h4>
+                </span>
               </div>
               <div className="d-flex justify-content-between">
                 <div>
