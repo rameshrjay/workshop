@@ -15,7 +15,6 @@ const ViewAllDeliveryPersons = () => {
     };
 
     getAllUsers();
-    // eslint-disable-next-line
   }, []);
 
   const retrieveAllUser = async () => {

@@ -21,7 +21,6 @@ const ViewSellerProducts = () => {
       };
       getAllProducts();
     }
-    // eslint-disable-next-line 
   }, [seller]); 
 
   const retrieveAllProducts = async () => {

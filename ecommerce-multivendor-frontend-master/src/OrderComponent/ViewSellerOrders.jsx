@@ -1,43 +1,29 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 
 const ViewSellerOrders = () => {
   const seller = JSON.parse(sessionStorage.getItem("active-seller"));
   const [orders, setOrders] = useState([]);
+
   const seller_jwtToken = sessionStorage.getItem("seller-jwtToken");
+
   const [orderId, setOrderId] = useState("");
   const [tempOrderId, setTempOrderId] = useState("");
+
   const [assignOrderId, setAssignOrderId] = useState("");
   const [deliveryPersonId, setDeliveryPersonId] = useState("");
+
   const [allDelivery, setAllDelivery] = useState([]);
+
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
-  const retrieveAllorders = useCallback(async () => {
-    const response = await axios.get(
-      "http://localhost:8080/api/order/fetch/seller-wise?sellerId=" + seller.id,
-      {
-        headers: {
-          Authorization: "Bearer " + seller_jwtToken,
-        },
-      }
-    );
-    return response.data;
-  }, [seller.id, seller_jwtToken]);
-
   useEffect(() => {
-    const retrieveOrdersById = async () => {
-      const response = await axios.get(
-        "http://localhost:8080/api/order/fetch?orderId=" + orderId
-      );
-      console.log(response.data);
-      return response.data;
-    };
-
     const getAllOrders = async () => {
       let allOrders;
       if (orderId) {
@@ -52,25 +38,54 @@ const ViewSellerOrders = () => {
     };
 
     const getAllUsers = async () => {
-      const response = await axios.get(
-        "http://localhost:8080/api/user/fetch/seller/delivery-person?sellerId=" +
-          seller.id,
-        {
-          headers: {
-            Authorization: "Bearer " + seller_jwtToken,
-          },
-        }
-      );
-      setAllDelivery(response.data.users);
+      const allUsers = await retrieveAllUser();
+      if (allUsers) {
+        setAllDelivery(allUsers.users);
+      }
     };
 
     getAllOrders();
     getAllUsers();
-  }, [orderId, retrieveAllorders, seller.id, seller_jwtToken]);
+  }, [orderId]);
+
+  const retrieveAllorders = async () => {
+    const response = await axios.get(
+      "http://localhost:8080/api/order/fetch/seller-wise?sellerId=" + seller.id,
+      {
+        headers: {
+          Authorization: "Bearer " + seller_jwtToken, // Replace with your actual JWT token
+        },
+      }
+    );
+    return response.data;
+  };
+
+  const retrieveAllUser = async () => {
+    const response = await axios.get(
+      "http://localhost:8080/api/user/fetch/seller/delivery-person?sellerId=" +
+        seller.id,
+      {
+        headers: {
+          Authorization: "Bearer " + seller_jwtToken, // Replace with your actual JWT token
+        },
+      }
+    );
+    return response.data;
+  };
+
+  const retrieveOrdersById = async () => {
+    const response = await axios.get(
+      "http://localhost:8080/api/order/fetch?orderId=" + orderId
+    );
+    console.log(response.data);
+    return response.data;
+  };
 
   const formatDateFromEpoch = (epochTime) => {
     const date = new Date(Number(epochTime));
-    return date.toLocaleString();
+    const formattedDate = date.toLocaleString(); // Adjust the format as needed
+
+    return formattedDate;
   };
 
   const searchOrderById = (e) => {
@@ -97,26 +112,46 @@ const ViewSellerOrders = () => {
     })
       .then((result) => {
         result.json().then((res) => {
-          const toastOptions = {
-            position: "top-center",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          };
           if (res.success) {
-            toast.success(res.responseMessage, toastOptions);
+            toast.success(res.responseMessage, {
+              position: "top-center",
+              autoClose: 1000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
             setOrders(res.orders);
             setTimeout(() => {
               window.location.reload(true);
-            }, 2000);
-          } else {
-            toast.error(res.responseMessage || "It seems server is down", toastOptions);
+            }, 2000); // Redirect after 3 seconds
+          } else if (!res.success) {
+            toast.error(res.responseMessage, {
+              position: "top-center",
+              autoClose: 1000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
             setTimeout(() => {
               window.location.reload(true);
-            }, 2000);
+            }, 2000); // Redirect after 3 seconds
+          } else {
+            toast.error("It Seems Server is down!!!", {
+              position: "top-center",
+              autoClose: 1000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            setTimeout(() => {
+              window.location.reload(true);
+            }, 2000); // Redirect after 3 seconds
           }
         });
       })
@@ -133,9 +168,10 @@ const ViewSellerOrders = () => {
         });
         setTimeout(() => {
           window.location.reload(true);
-        }, 2000);
+        }, 1000); // Redirect after 3 seconds
       });
   };
+
   return (
     <div className="mt-3">
       <div
@@ -204,7 +240,7 @@ const ViewSellerOrders = () => {
               <tbody>
                 {orders.map((order) => {
                   return (
-                    <tr key={order.orderId}>
+                    <tr>
                       <td>
                         <b>{order.orderId}</b>
                       </td>
@@ -225,8 +261,9 @@ const ViewSellerOrders = () => {
                         <b>{order.product.name}</b>
                       </td>
                       <td>
-                        <b>{order.product.category ? order.product.category.name : "No Category"}</b>
-                      </td>
+  <b>{order.product.category ? order.product.category.name : "No Category"}</b>
+</td>
+
                       <td>
                         <b>{order.product.seller.firstName}</b>
                       </td>
@@ -239,6 +276,7 @@ const ViewSellerOrders = () => {
                       <td>
                         <b>{order.user.firstName}</b>
                       </td>
+
                       <td>
                         <b>{formatDateFromEpoch(order.orderTime)}</b>
                       </td>
@@ -246,38 +284,52 @@ const ViewSellerOrders = () => {
                         <b>{order.status}</b>
                       </td>
                       <td>
-                        {order.deliveryPerson ? (
-                          <b>{order.deliveryPerson.firstName}</b>
-                        ) : (
-                          <b className="text-danger">Pending</b>
-                        )}
+                        {(() => {
+                          if (order.deliveryPerson) {
+                            return <b>{order.deliveryPerson.firstName}</b>;
+                          } else {
+                            return <b className="text-danger">Pending</b>;
+                          }
+                        })()}
                       </td>
                       <td>
-                        {order.deliveryPerson ? (
-                          <b>{order.deliveryPerson.phoneNo}</b>
-                        ) : (
-                          <b className="text-danger">Pending</b>
-                        )}
+                        {(() => {
+                          if (order.deliveryPerson) {
+                            return <b>{order.deliveryPerson.phoneNo}</b>;
+                          } else {
+                            return <b className="text-danger">Pending</b>;
+                          }
+                        })()}
                       </td>
                       <td>
-                        {order.deliveryDate ? (
-                          <b>{order.deliveryDate + " " + order.deliveryTime}</b>
-                        ) : (
-                          <b className="text-danger">Processing</b>
-                        )}
+                        {(() => {
+                          if (order.deliveryDate) {
+                            return (
+                              <b>
+                                {order.deliveryDate + " " + order.deliveryTime}
+                              </b>
+                            );
+                          } else {
+                            return <b className="text-danger">Processing</b>;
+                          }
+                        })()}
                       </td>
                       <td>
-                        {order.deliveryPerson ? (
-                          <b>Delivery Assigned</b>
-                        ) : (
-                          <button
-                            className="btn btn-sm bg-color custom-bg-text ms-2"
-                            variant="primary"
-                            onClick={() => assignDelivery(order.orderId)}
-                          >
-                            Assign Delivery
-                          </button>
-                        )}
+                        {(() => {
+                          if (order.deliveryPerson) {
+                            return <b>Delivery Assigned</b>;
+                          } else {
+                            return (
+                              <button
+                                className="btn btn-sm bg-color custom-bg-text ms-2"
+                                variant="primary"
+                                onClick={() => assignDelivery(order.orderId)}
+                              >
+                                Assign Delivery
+                              </button>
+                            );
+                          }
+                        })()}
                       </td>
                     </tr>
                   );
@@ -302,7 +354,7 @@ const ViewSellerOrders = () => {
           <div className="ms-3 mt-3 mb-3 me-3">
             <form>
               <div className="mb-3">
-                <label htmlFor="title" className="form-label">
+                <label for="title" className="form-label">
                   <b>Order Id</b>
                 </label>
                 <input type="text" className="form-control" value={assignOrderId} />
@@ -322,7 +374,7 @@ const ViewSellerOrders = () => {
 
                   {allDelivery.map((delivery) => {
                     return (
-                      <option key={delivery.id} value={delivery.id}>
+                      <option value={delivery.id}>
                         {delivery.firstName + " " + delivery.lastName}
                       </option>
                     );

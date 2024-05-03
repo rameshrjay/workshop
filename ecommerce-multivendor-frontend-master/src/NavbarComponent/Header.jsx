@@ -38,7 +38,7 @@ const Header = () => {
           />
           <Link to="/" className="navbar-brand">
             <i>
-              <b className="text-color ms-2">Rjay Multi-Vendor Shop</b>
+              <b className="text-color ms-2">Multi-Vendor Shop</b>
             </i>
           </Link>
 
@@ -56,14 +56,14 @@ const Header = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item dropdown">
-                <div
+                <a
                   className="nav-link dropdown-toggle text-color"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   <b> Category</b>
-                </div>
+                </a>
                 <ul className="dropdown-menu custom-bg text-color">
                   {categories.map((category) => {
                     return (
