@@ -46,6 +46,7 @@ const ViewSellerOrders = () => {
 
     getAllOrders();
     getAllUsers();
+    // eslint-disable-next-line
   }, [orderId]);
 
   const retrieveAllorders = async () => {

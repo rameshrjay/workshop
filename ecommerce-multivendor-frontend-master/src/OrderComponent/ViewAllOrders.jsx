@@ -248,6 +248,7 @@ const ViewAllOrders = () => {
     };
 
     getAllOrders();
+    // eslint-disable-next-line
   }, [orderId]);
 
   const retrieveAllorders = async () => {

@@ -23,6 +23,7 @@ const Header = () => {
     };
 
     getAllCategories();
+    // eslint-disable-next-line
   }, []);
 
   return (

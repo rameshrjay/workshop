@@ -10,7 +10,7 @@ const ViewSellerDeliveryPerson = () => {
   const seller = JSON.parse(sessionStorage.getItem("active-seller"));
   const seller_jwtToken = sessionStorage.getItem("seller-jwtToken");
 
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   useEffect(() => {
     const getAllUsers = async () => {
@@ -21,6 +21,7 @@ const ViewSellerDeliveryPerson = () => {
     };
 
     getAllUsers();
+    // eslint-disable-next-line
   }, []);
 
   const retrieveAllUser = async () => {

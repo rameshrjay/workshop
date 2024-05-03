@@ -36,6 +36,7 @@ const SellerProducts = () => {
     };
 
     fetchData();
+    // eslint-disable-next-line
   }, [seller, categoryId]);
 
   return (

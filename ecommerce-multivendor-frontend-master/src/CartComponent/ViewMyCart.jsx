@@ -29,6 +29,7 @@ const ViewMyCart = () => {
     };
 
     getAllCart();
+    // eslint-disable-next-line
   }, []);
 
   const retrieveCart = async () => {

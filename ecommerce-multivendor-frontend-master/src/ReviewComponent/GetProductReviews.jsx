@@ -27,6 +27,7 @@ const GetProductReviews = (hotel) => {
     };
 
     getAllReviews();
+    // eslint-disable-next-line
   }, []);
 
   return (

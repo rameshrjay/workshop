@@ -76,6 +76,7 @@ const ViewDeliveryOrders = () => {
     getAllOrders();
     getAllDeliveryStatus();
     getAllDeliveryTiming();
+    // eslint-disable-next-line
   }, [orderId]);
 
   const retrieveAllorders = async () => {

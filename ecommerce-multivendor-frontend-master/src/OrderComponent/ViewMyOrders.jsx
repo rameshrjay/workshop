@@ -17,6 +17,7 @@ const ViewMyOrders = () => {
     };
 
     getAllOrders();
+    // eslint-disable-next-line
   }, []);
 
   const retrieveCart = async () => {
