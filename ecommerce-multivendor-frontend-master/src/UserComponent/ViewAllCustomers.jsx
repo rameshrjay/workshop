@@ -14,7 +14,6 @@ const ViewAllCustomers = () => {
         setAllCustomer(allUsers.users);
       }
     };
-
     getAllUsers();
   }, []);
 

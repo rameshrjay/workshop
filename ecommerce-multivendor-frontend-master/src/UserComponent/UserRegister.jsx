@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const UserRegister = () => {
   const navigate = useNavigate();
@@ -21,11 +21,11 @@ const UserRegister = () => {
   });
     
   useEffect(() => {
-    if (document.URL.indexOf("customer") != -1) {
+    if (document.URL.indexOf("customer") !== -1) {
       user.role = "Customer";
-    } else if (document.URL.indexOf("delivery") != -1) {
+    } else if (document.URL.indexOf("delivery") !== -1) {
       user.role = "Delivery";
-    } else if (document.URL.indexOf("seller") != -1) {
+    } else if (document.URL.indexOf("seller") !== -1) {
       user.role = "Seller";
     }
   }, []);
@@ -36,9 +36,6 @@ const UserRegister = () => {
 
   const saveUser = (e) => {
     e.preventDefault();
-
-    let jwtToken;
-
     if (user.role === "Delivery") {
       user.sellerId = seller.id;
       // jwtToken = sessionStorage.getItem("seller-jwtToken"); // Use bank's JWT token for customer register

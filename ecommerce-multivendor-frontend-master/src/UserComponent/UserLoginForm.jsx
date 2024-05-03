@@ -4,8 +4,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 const UserLoginForm = () => {
-  let navigate = useNavigate();
-
   const [loginRequest, setLoginRequest] = useState({
     emailId: "",
     password: "",
