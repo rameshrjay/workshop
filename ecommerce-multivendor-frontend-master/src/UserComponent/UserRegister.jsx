@@ -54,7 +54,7 @@ const UserRegister = () => {
     e.preventDefault();
     if (user.role === "Delivery") {
       user.sellerId = seller.id;
-       jwtToken = sessionStorage.getItem("seller-jwtToken"); // Use bank's JWT token for customer register
+      //  jwtToken = sessionStorage.getItem("seller-jwtToken"); // Use bank's JWT token for customer register
     }
 
     fetch("http://localhost:8080/api/user/register", {
@@ -62,7 +62,7 @@ const UserRegister = () => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-         Authorization: "Bearer " + jwtToken,
+        //  Authorization: "Bearer " + jwtToken,
       },
       body: JSON.stringify(user),
     })
