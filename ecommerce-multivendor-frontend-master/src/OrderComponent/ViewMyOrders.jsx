@@ -105,8 +105,8 @@ const ViewMyOrders = () => {
                         <b>{order.product.name}</b>
                       </td>
                       <td>
-  <b>{order.product.category ? order.product.category.name : "No Category"}</b>
-</td>
+                        <b>{order.product.category ? order.product.category.name : "No Category"}</b>
+                      </td>
                       <td>
                         <b>{order.product.seller.firstName}</b>
                       </td>

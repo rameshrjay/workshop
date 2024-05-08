@@ -7,15 +7,14 @@ const UpdateCategoryForm = () => {
   const location = useLocation();
   const category = location.state;
   const admin_jwtToken = sessionStorage.getItem("admin-jwtToken");
-
-  const [id, setId] = useState(category.id);
+  
   const [name, setName] = useState(category.name);
   const [description, setDescription] = useState(category.description);
 
   let navigate = useNavigate();
 
   const saveCategory = (e) => {
-    let data = { id, name, description };
+    let data = { id:category.id, name, description };
 
     fetch("http://localhost:8080/api/category/update", {
       method: "PUT",

@@ -34,7 +34,6 @@ const SellerProducts = () => {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
     // eslint-disable-next-line
   }, [seller, categoryId]);

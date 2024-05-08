@@ -20,7 +20,6 @@ const ViewAllProducts = () => {
     const response = await axios.get(
       "http://localhost:8080/api/product/fetch/all"
     );
-    console.log(response.data);
     return response.data;
   };
 
@@ -39,7 +38,7 @@ const ViewAllProducts = () => {
             height: "50px",
           }}
         >
-          <h2>My Products</h2>
+          <h2>All Products</h2>
         </div>
         <div
           className="card-body"

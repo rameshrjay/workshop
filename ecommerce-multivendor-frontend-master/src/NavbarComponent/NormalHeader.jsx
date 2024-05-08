@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 
 const NormalHeader = () => {
+  const handleLinkClick = (targetUrl) => {
+   window.location.reload(); 
+   window.location.href = targetUrl;
+  };
+
   return (
     <ul className="navbar-nav ms-auto mb-2 mb-lg-0 me-5">
       <li className="nav-item">
@@ -8,6 +13,7 @@ const NormalHeader = () => {
           to="/user/seller/register"
           className="nav-link active"
           aria-current="page"
+          onClick={() => handleLinkClick("/user/seller/register")}
         >
           <b className="text-color">Register Seller</b>
         </Link>
@@ -18,6 +24,7 @@ const NormalHeader = () => {
           to="/user/customer/register"
           className="nav-link active"
           aria-current="page"
+          onClick={() => handleLinkClick("/user/customer/register")}
         >
           <b className="text-color">Register Customer</b>
         </Link>
