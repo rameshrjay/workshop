@@ -32,14 +32,15 @@ const Header = () => {
         <div className="container-fluid text-color">
           <img
             src={logo}
-            width="65"
+            width="75"
             height="auto"
             className="d-inline-block align-top"
             alt=""
+           
           />
           <Link to="/" className="navbar-brand">
             <i>
-              <b className="text-color ms-2">Multi-Vendor Shop</b>
+              <b className="text-color ms-2">E-Commerce</b>
             </i>
           </Link>
 

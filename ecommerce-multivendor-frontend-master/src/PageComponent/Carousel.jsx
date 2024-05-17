@@ -1,11 +1,14 @@
-import carousel1 from "../images/carousel_1.png";
-
+import carousel1 from "../images/carousel_1.jpg";
+import carousel2 from "../images/carousel_2.jpg";
+import carousel3 from "../images/carousel_3.jpg";
 const Carousel = () => {
   return (
     <div
       id="carouselExampleCaptions"
       className="carousel slide"
-      data-bs-ride="false"
+      data-bs-ride="carousel"
+      data-bs-interval="2000"
+      style={{ height: "400px" }}
     >
       <div className="carousel-indicators">
         <button
@@ -30,14 +33,14 @@ const Carousel = () => {
         ></button>
       </div>
       <div className="carousel-inner">
-        <div className="carousel-item active">
-          <img src={carousel1} className="d-block w-100" alt="..." />
+       <div className="carousel-item active">
+          <img src={carousel1} className="d-block w-100" alt="Slide 1" style={{ height: "400px", objectFit: "cover" }} />
+        </div> 
+        <div className="carousel-item">
+          <img src={carousel2} className="d-block w-100" alt="Slide 2" style={{ height: "400px", objectFit: "cover" }} />
         </div>
         <div className="carousel-item">
-          <img src={carousel1} className="d-block w-100" alt="..." />
-        </div>
-        <div className="carousel-item">
-          <img src={carousel1} className="d-block w-100" alt="..." />
+          <img src={carousel3} className="d-block w-100" alt="Slide 2" style={{ height: "400px", objectFit: "cover" }} />
         </div>
       </div>
       <button
