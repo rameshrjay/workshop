@@ -11,6 +11,8 @@
 # hlsearch on (H) or off (h):
 ~H
 # Command Line History (newest to oldest):
+:wq
+|2,0,1717408709,,"wq"
 :wq!
 |2,0,1717402094,,"wq!"
 :q!
@@ -30,27 +32,39 @@
 
 # File marks:
 '0  5  35  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
-|4,48,5,35,1717402094,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
-'1  12  0  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
-|4,49,12,0,1717401942,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
+|4,48,5,35,1717408709,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
+'1  5  35  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
+|4,49,5,35,1717402094,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
 '2  12  0  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
 |4,50,12,0,1717401942,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
-'3  1  8  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
-|4,51,1,8,1717401867,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
-'4  1  8  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
-|4,52,1,8,1717401867,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
-'5  1  8  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
-|4,53,1,8,1717401867,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
+'3  12  0  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
+|4,51,12,0,1717401942,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
+'4  12  0  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
+|4,52,12,0,1717401942,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
+'5  12  0  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
+|4,53,12,0,1717401942,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
 '6  1  8  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
 |4,54,1,8,1717401867,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
+'7  1  8  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
+|4,55,1,8,1717401867,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
+'8  1  8  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
+|4,56,1,8,1717401867,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
+'9  1  8  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
+|4,57,1,8,1717401867,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
 
 # Jumplist (newest first):
+-'  5  35  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
+|4,39,5,35,1717408709,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
 -'  5  35  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
 |4,39,5,35,1717402094,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
 -'  12  0  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
 |4,39,12,0,1717401945,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
 -'  12  0  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
+|4,39,12,0,1717401945,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
+-'  12  0  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
 |4,39,12,0,1717401942,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
+-'  1  8  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
+|4,39,1,8,1717401870,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
 -'  1  8  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
 |4,39,1,8,1717401870,"~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties"
 -'  1  8  ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
@@ -61,7 +75,7 @@
 # History of marks within files (newest to oldest):
 
 > ~/workshop/ecommerce-multivendor-backend-master/src/main/resources/application.properties
-	*	1717402089	0
+	*	1717408705	0
 	"	5	35
 	^	5	36
 	.	5	35
